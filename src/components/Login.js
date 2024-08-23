@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useLogin from "../hooks/useLogin";
-const Login = () => {
+const Login = ({setJwt}) => {
   const {
     showLogin,
     setShowLogin,
@@ -9,7 +9,7 @@ const Login = () => {
     password,
     setPassword,
     handleLogin,
-  } = useLogin();
+  } = useLogin(setJwt);
 
   return (
     <div className="flex flex-col max-w-md mx-auto p-4 m-4 bg-white rounded shadow border border-gray-300">
@@ -41,7 +41,7 @@ const Login = () => {
           />
         </div>
         <div className="flex justify-center">
-          <button className="button">
+          <button className="button" onClick={handleLogin}>
             {" "}
             {showLogin ? "Login" : "Register"}
           </button>
@@ -52,6 +52,8 @@ const Login = () => {
               className="bg-red-500 text-black hover:bg-red-600 hover:text-white rounded p-2 m-2"
               onClick={() => {
                 setShowLogin(false);
+                setUsername("");
+                setPassword("");
               }}
             >
               Don't have an account? Register Now
@@ -62,7 +64,11 @@ const Login = () => {
           <div className="flex justify-center">
             <button
               className="bg-red-500 text-black hover:bg-red-600 hover:text-white rounded p-2 m-2"
-              onClick={() => setShowLogin(true)}
+              onClick={() => {
+                setShowLogin(true);
+                setUsername("");
+                setPassword("");
+              }}
             >
               Go back to Login
             </button>

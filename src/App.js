@@ -6,7 +6,7 @@ function App() {
   const [jwt, setJwt] = useState(null);
   return (
     <>
-      {jwt ? <></>: <Login/>}
+      {jwt ? <></>: <Login setJwt={setJwt}/>}
     </>
   );
 }
