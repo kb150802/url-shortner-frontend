@@ -19,7 +19,8 @@ const useLogin = (setJwt)=> {
                 body: JSON.stringify(data)
             });
             if(!response.ok) {
-                alert("Login failed ")
+                const data = await response.json();
+                alert("Login falied " + data.message || data.messages);
                 return ;
             }
             alert("Login Successful! Redirecting")
@@ -46,8 +47,10 @@ const useLogin = (setJwt)=> {
                 body: JSON.stringify(data)
             });
             if(!response.ok) {
-                alert("Registeration failed")
+                const data = await response.json();
+                alert("Registration falied " + (data.message || data.messages));
                 return ;
+
             }
             alert("Resgitration Succesful")
 
