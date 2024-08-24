@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useLogin = (setJwt)=> {
+const useLogin = (handleJwtChange)=> {
     const [showLogin, setShowLogin] = useState(true);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -24,11 +24,10 @@ const useLogin = (setJwt)=> {
                 return ;
             }
             alert("Login Successful! Redirecting")
-            setTimeout(async()=>{
-                const data = await response.json();
-                setJwt(data.jwtToken);
-                console.log(data);
-            }, 2000)
+          
+            const responseData = await response.json();
+            handleJwtChange(responseData.jwtToken);
+
         }catch(exception) {
             alert(exception);
         }
@@ -60,6 +59,10 @@ const useLogin = (setJwt)=> {
     }
     const handleLogin = ()=>  {
         showLogin ? login() : register();
+    }
+
+    const handleLogout = ()=> {
+        handleJwtChange(null);
     }
     return {
         showLogin,

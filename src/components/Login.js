@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useLogin from "../hooks/useLogin";
-const Login = ({setJwt}) => {
+const Login = ({handleJwtChange}) => {
   const {
     showLogin,
     setShowLogin,
@@ -9,19 +9,19 @@ const Login = ({setJwt}) => {
     password,
     setPassword,
     handleLogin,
-  } = useLogin(setJwt);
+  } = useLogin(handleJwtChange);
 
   return (
     <div className="flex flex-col max-w-md mx-auto p-4 m-4 bg-white rounded shadow border border-gray-300">
       <div className="flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
-          <label className="w-1/3 text-gray-700" htmlFor="username">
+          <label className="label" htmlFor="username">
             Username (Email)
           </label>
           <input
             id="username"
             type="text"
-            className="border border-gray-300 p-2 rounded w-2/3 focus:outline-none focus:border-blue-500"
+            className="input"
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
@@ -29,13 +29,13 @@ const Login = ({setJwt}) => {
           />
         </div>
         <div className="flex items-center space-x-4">
-          <label className="w-1/3 text-gray-700" htmlFor="password">
+          <label className="label" htmlFor="password">
             Password
           </label>
           <input
             id="password"
             type="password"
-            className="border border-gray-300 p-2 rounded w-2/3 focus:outline-none focus:border-blue-500"
+            className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
