@@ -3,6 +3,27 @@ import { useState } from "react"
 const useShortener = ()=> {
     const [longUrl, setLongUrl] = useState("");
     const [customUrl, setCustomUrl] = useState("");
+    const [shortenedUrlsList, setShortenedUrlsList] = useState([]);
+
+    const getAllUrls = async()=> {
+        const response = await fetch("http://localhost:8080/user/shortenedUrls", {
+            method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                },
+        });
+        if(response.ok) {
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+        return [];
+    }
+    const fetchAllUrls = async()=> {
+        const data = await getAllUrls()
+        setShortenedUrlsList(data);
+    }
     const shortenUrl =async ()=> {
         try {
             let payload = {
@@ -27,6 +48,7 @@ const useShortener = ()=> {
             }
             let responseData = await resp.json();
             alert("Shortend Url " + responseData.shortUrl);
+            fetchAllUrls();
         }catch(exception) {
             alert("Failed to shorten url");
         }
@@ -38,6 +60,8 @@ const useShortener = ()=> {
         customUrl,
         setCustomUrl,
         shortenUrl,
+        fetchAllUrls,
+        shortenedUrlsList
     }
 }
 

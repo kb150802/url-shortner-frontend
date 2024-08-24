@@ -1,13 +1,17 @@
 import React from "react";
-import useLogin from "../hooks/useLogin";
 import useShortener from "../hooks/useShortener";
+import MyShortenedUrls from "./MyShortenedUrls";
 
 const ShortenUrl = ({ handleLogout }) => {
-  const { shortenUrl, longUrl, setLongUrl, customUrl, setCustomUrl } =
+
+
+  const { shortenUrl, longUrl, setLongUrl, customUrl, setCustomUrl, fetchAllUrls, shortenedUrlsList } =
     useShortener();
 
   return (
-    <div className="flex flex-col max-w-md mx-auto p-4 m-4 bg-white rounded shadow border border-gray-300">
+    <>
+    <div className="flex flex-col wid-full mx-auto p-4 m-4 bg-white rounded shadow border border-gray-300">
+      
       <div className="flex flex-col space-y-4">
         <div className="flex items-center space-x-4">
           <label className="label">Link</label>
@@ -35,8 +39,11 @@ const ShortenUrl = ({ handleLogout }) => {
             Logout
           </button>
         </div>
-      </div>
+      </div>    
     </div>
+      <MyShortenedUrls fetchAllUrls={fetchAllUrls} shortenedUrlsList={shortenedUrlsList}/>
+</>
+    
   );
 };
 
