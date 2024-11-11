@@ -4,6 +4,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
 import { useLocation } from "react-router-dom"; // Import useLocation hook
 
 const navigation = [
@@ -17,11 +18,9 @@ function classNames(...classes) {
 
 function getUsernameFromJwt(token) {
   try {
-    // Split the token and decode the payload
     const base64Payload = token.split(".")[1];
     const decodedPayload = JSON.parse(atob(base64Payload));
 
-    // Return the username (assuming it's stored under the "username" key)
     return decodedPayload.sub;
   } catch (error) {
     console.error("Invalid token format", error);
@@ -79,9 +78,9 @@ export default function NavBar({ handleLogout, toggleDarkMode, darkMode }) {
               className="text-white bg-gray-800 p-2 rounded-md hover:bg-gray-700"
             >
               {darkMode ? (
-                <span>🌙</span> // Moon icon for dark mode
+                <SunIcon className="h-6 w-6" />
               ) : (
-                <span>🌞</span> // Sun icon for light mode
+                <MoonIcon className="h-6 w-6" />
               )}
             </button>
           </div>
