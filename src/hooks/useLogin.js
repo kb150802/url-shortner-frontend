@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useState} from "react";
 
 const useLogin = (handleJwtChange)=> {
     const [showLogin, setShowLogin] = useState(true);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const login = async()=> {
+        setIsLoading(true);
         try {
             const data = {
                 username,
                 password
             }
+            console.log(username);
+            console.log(password);
             const response = await fetch("http://localhost:8080/auth/login", {
                 method:"POST",
                 headers: {
@@ -23,14 +27,24 @@ const useLogin = (handleJwtChange)=> {
                 alert("Login falied " + data.message || data.messages);
                 return ;
             }
-            alert("Login Successful! Redirecting")
-          
             const responseData = await response.json();
-            handleJwtChange(responseData.jwtToken);
+
+            setTimeout(()=>{
+                window.location.href="http://localhost:3000/dashboard"
+                handleJwtChange(responseData.jwtToken);
+            },1000);
+          
+
 
         }catch(exception) {
             alert(exception);
         }
+        finally{
+            setTimeout(()=>{
+                setIsLoading(false)
+            }, 1000)
+        }
+        
     }
     const register = async()=> {
         try {
@@ -71,7 +85,8 @@ const useLogin = (handleJwtChange)=> {
         setUsername,
         password,
         setPassword,
-        handleLogin
+        handleLogin,
+        isLoading
     }
 }
 

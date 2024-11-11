@@ -8,7 +8,7 @@ import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
 import { useLocation } from "react-router-dom"; // Import useLocation hook
 
 const navigation = [
-  { name: "Dashboard", href: "/" },
+  { name: "Dashboard", href: "/dashboard" },
   { name: "My Short URLs", href: "/my-short-urls" },
 ];
 

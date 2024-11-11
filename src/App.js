@@ -18,6 +18,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('jwtToken');
     setJwt(null);
+    window.location.href="http://localhost:3000/";
   };
 
   const toggleDarkMode = () => {
@@ -49,7 +50,7 @@ function App() {
         <>
         <NavBar handleLogout={handleLogout} toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
         <Routes>
-          <Route path="/" element={<ShortenUrl handleLogout={handleLogout} />} />
+          <Route path="/dashboard" element={<ShortenUrl handleLogout={handleLogout} />} />
 
           <Route path="/my-short-urls" element={<MyShortenedUrls/>} />
         </Routes>
