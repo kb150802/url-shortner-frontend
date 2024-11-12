@@ -1,5 +1,7 @@
 import React from "react";
 import useShortener from "../hooks/useShortener";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+
 
 const ShortenUrl = ({ handleLogout }) => {
   const { shortenUrl, longUrl, setLongUrl, customUrl, setCustomUrl } = useShortener();
@@ -59,7 +61,7 @@ const ShortenUrl = ({ handleLogout }) => {
               <span className="inline-flex items-center px-4 py-2 rounded-l-lg border border-r-0 border-gray-300 
                            dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 
                            text-sm">
-                localhost:8080/
+                            {API_BASE_URL}
               </span>
               <input
                 type="text"

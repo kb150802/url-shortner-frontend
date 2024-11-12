@@ -1,24 +1,30 @@
 import { useState } from "react"
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+
 const useShortener = ()=> {
     const [longUrl, setLongUrl] = useState("");
     const [customUrl, setCustomUrl] = useState("");
     const [shortenedUrlsList, setShortenedUrlsList] = useState([]);
 
     const getAllUrls = async()=> {
-        const response = await fetch("http://localhost:8080/user/shortenedUrls", {
-            method: 'GET',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-                },
-        });
-        if(response.ok) {
-            const data = await response.json();
-            console.log(data);
-            return data;
+        try{
+            const response = await fetch(`${API_BASE_URL}/user/shortenedUrls`, {
+                method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                    },
+            });
+            if(response.ok) {
+                const data = await response.json();
+                console.log(data);
+                return data;
+            }
+        }catch {
+            alert("Error while fetching shortened urls")
+            return [];
         }
-        return [];
     }
     const fetchAllUrls = async()=> {
         const data = await getAllUrls()
@@ -29,11 +35,11 @@ const useShortener = ()=> {
             let payload = {
                 longUrl
             }
-            if(customUrl && customUrl != "") {
+            if(customUrl && customUrl !== "") {
                 payload.customUrl = customUrl;
             }
 
-            let resp = await fetch("http://localhost:8080/create", {
+            let resp = await fetch(`${API_BASE_URL}/create`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

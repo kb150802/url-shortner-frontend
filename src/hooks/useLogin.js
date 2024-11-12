@@ -1,10 +1,15 @@
 import { useState} from "react";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+const REACT_APP_CLIENT = process.env.REACT_APP_CLIENT
+
 const useLogin = (handleJwtChange)=> {
     const [showLogin, setShowLogin] = useState(true);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    
 
     const login = async()=> {
         setIsLoading(true);
@@ -15,7 +20,7 @@ const useLogin = (handleJwtChange)=> {
             }
             console.log(username);
             console.log(password);
-            const response = await fetch("http://localhost:8080/auth/login", {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,7 +35,7 @@ const useLogin = (handleJwtChange)=> {
             const responseData = await response.json();
 
             setTimeout(()=>{
-                window.location.href="http://localhost:3000/dashboard"
+                window.location.href=REACT_APP_CLIENT
                 handleJwtChange(responseData.jwtToken);
             },1000);
           
@@ -52,7 +57,7 @@ const useLogin = (handleJwtChange)=> {
                 username,
                 password
             }
-            const response = await fetch("http://localhost:8080/auth/register", {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,10 +78,6 @@ const useLogin = (handleJwtChange)=> {
     }
     const handleLogin = ()=>  {
         showLogin ? login() : register();
-    }
-
-    const handleLogout = ()=> {
-        handleJwtChange(null);
     }
     return {
         showLogin,
