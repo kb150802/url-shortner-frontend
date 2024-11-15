@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import useShortener from "../hooks/useShortener";
 import ShortUrlModal from "./ShortUrlModal";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const MyShortenedUrls = () => {
   const { fetchAllUrls, shortenedUrlsList } = useShortener();
@@ -29,7 +28,6 @@ const MyShortenedUrls = () => {
   };
 
   // Handle clicking outside modal to close
-
 
   return (
     <div className="flex items-start justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
@@ -96,15 +94,21 @@ const MyShortenedUrls = () => {
                   </div>
                 </div>
               ))}
-              
             </div>
           )}
+        </div>
+        {/* QR Code Placeholder (Optional) */}
+        <div
+          className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 
+                           dark:border-gray-600 text-center text-gray-500 dark:text-gray-400"
+        >
+          QR Code could be added here
         </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && selectedUrl && (
-        <ShortUrlModal closeModal={closeModal} selectedUrl={selectedUrl}/> 
+        <ShortUrlModal closeModal={closeModal} selectedUrl={selectedUrl} />
       )}
     </div>
   );

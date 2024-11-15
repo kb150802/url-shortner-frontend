@@ -85,11 +85,7 @@ const ShortUrlModal = ({selectedUrl, closeModal, })=>{
                 </div>
               </div>
 
-              {/* QR Code Placeholder (Optional) */}
-              {/* <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 
-                           dark:border-gray-600 text-center text-gray-500 dark:text-gray-400">
-                QR Code could be added here
-              </div> */}
+              
             </div>
           </div>
         </div>
